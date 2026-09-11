@@ -1,0 +1,14 @@
+# Dependencies (unused local installs)
+node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / AI tooling artifacts
+.codebase-memory/
+*.log
+
+# Corrupt placeholder (28 bytes, not a valid image)
+stitch_personal_portfolio_website/screen.png

@@ -1,0 +1,444 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title class="">ROHIT JANA — Computer Science &amp; Engineering | Systems &amp; Architecture</title>
+<!-- Tailwind CSS CDN with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&amp;family=Outfit:wght@200;300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@200;300;400;500;600&amp;family=Space+Grotesk:wght@300;400;500;600&amp;family=Syne:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            noir: '#050505',
+            pitch: '#000000',
+            graphite: '#0e0e0e',
+            steel: '#18181b',
+            ash: '#27272a',
+            muted: '#71717a',
+            silver: '#a1a1aa',
+            light: '#f4f4f5',
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+            display: ['Syne', 'sans-serif'],
+          },
+          letterSpacing: {
+            tighter: '-0.06em',
+            tight: '-0.04em',
+            widest: '0.22em',
+          },
+          animation: {
+            'ticker-left': 'marqueeLeft 35s linear infinite',
+            'ticker-right': 'marqueeRight 38s linear infinite',
+          },
+          keyframes: {
+            marqueeLeft: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            marqueeRight: {
+              '0%': { transform: 'translateX(-50%)' },
+              '100%': { transform: 'translateX(0%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Base & Editorial Styling -->
+<style data-purpose="custom-typography">
+    ::selection {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    /* Lenis smooth scroll (darkroom.engineering) — recommended base styles */
+    html.lenis,
+    html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-smooth iframe {
+      pointer-events: none;
+    }
+    
+    /* Fine-grained halftone & noise background simulation */
+    .bg-noise {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    .vinyl-grooves {
+      background: radial-gradient(circle at center, #18181b 0%, #09090b 12%, #27272a 13%, #09090b 25%, #27272a 26%, #09090b 42%, #27272a 43%, #09090b 60%, #1f1f23 61%, #09090b 80%, #000 100%);
+    }
+
+    .brutalist-border {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .tape-ribbon {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Scroll reveal base classes */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-on-scroll.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 3D tilt card styles */
+    .tilt-card {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    .tilt-card:hover {
+      box-shadow: 0 20px 40px -15px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Interactive row cursor glow effect */
+    .work-row {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .work-row:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+    .work-row:hover .row-dot {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+    .work-row:hover .row-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .row-arrow {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.25s ease-out;
+    }
+
+    /* Subtle cursor glow backdrop on mouse move */
+    #cursor-glow {
+      pointer-events: none;
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0) 70%);
+      transform: translate(-50%, -50%);
+      z-index: 40;
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body class="bg-pitch text-light font-sans antialiased overflow-x-hidden selection:bg-white selection:text-black">
+<!-- Ambient Cursor Glow -->
+<div id="cursor-glow" style="left: 263px; top: 1039px; opacity: 1;"></div>
+<!-- Minimalist Brutalist Scroll Progress Bar -->
+<div class="fixed top-0 left-0 w-full h-[2px] bg-neutral-900/60 z-[100] pointer-events-none">
+<div class="h-full bg-gradient-to-r from-neutral-400 via-white to-neutral-200 w-0 transition-all duration-75 ease-out shadow-[0_0_8px_rgba(255,255,255,0.8)]" id="scroll-progress" style="width: 0%;"></div>
+</div>
+<!-- BEGIN: SiteHeader -->
+<header class="fixed top-0 left-0 w-full z-50 bg-pitch/80 backdrop-blur-md border-b border-neutral-900/80 transition-all duration-300" id="site-header">
+<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between font-mono text-xs tracking-wider uppercase">
+<!-- Brand Logo / Studio Monogram -->
+<a class="flex items-center gap-3 text-white hover:opacity-75 transition-opacity" data-purpose="brand-logo" href="#"><span class="inline-flex gap-1 items-center"><span class="w-1.5 h-1.5 bg-white"></span><span class="w-1.5 h-1.5 bg-white"></span></span><span class="font-bold tracking-widest text-sm">ROHIT JANA [CSE]</span></a>
+<!-- Primary Navigation -->
+<nav class="hidden md:flex items-center gap-10 text-neutral-400"><a class="hover:text-white transition-colors duration-200 flex items-center gap-2" href="#about"><span class="">[ ABOUT ]</span><span class="text-[9px] text-neutral-600">■</span></a><a class="hover:text-white transition-colors duration-200 flex items-center gap-2" href="#work"><span class="">[ PROJECTS ]</span><span class="text-[9px] text-neutral-600">■</span></a><a class="hover:text-white transition-colors duration-200 flex items-center gap-2" href="#process"><span class="">[ RESEARCH ]</span></a><a class="hover:text-white transition-colors duration-200 flex items-center gap-2" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank"><span class="">[ GITHUB ]</span></a></nav>
+<!-- Contact Trigger -->
+<div class="flex items-center gap-4">
+<a class="px-3.5 py-1.5 border border-neutral-800 text-neutral-300 hover:text-black hover:bg-white transition-all duration-300 active:scale-95" href="#contact">
+          [ Contact ]
+        </a>
+</div>
+</div>
+</header>
+<!-- END: SiteHeader -->
+<main>
+<!-- BEGIN: HeroSection -->
+<section class="relative min-h-screen pt-28 pb-20 px-6 max-w-7xl mx-auto flex flex-col justify-between border-b border-neutral-900">
+<!-- Top Meta Coordinates & Tagline -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 pt-6 border-t border-neutral-900 font-mono text-xs text-neutral-500 uppercase reveal-on-scroll is-revealed"><div class="md:col-span-4 flex items-center gap-2"><span class="inline-flex gap-1"><span class="w-1.5 h-1.5 bg-white"></span><span class="w-1.5 h-1.5 bg-white"></span></span><span class="">INDEX [2026] / ROHIT JANA</span></div><div class="md:col-span-4 hidden md:block text-neutral-400">B.TECH CSE — DISTRIBUTED SYSTEMS &amp; ARCHITECTURE</div><div class="md:col-span-4 text-left md:text-right text-neutral-400 flex items-center md:justify-end gap-2"><span class="inline-block w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>AVAILABLE FOR SOFTWARE ENGINEERING &amp; RESEARCH ROLES</div></div>
+<!-- Center Dynamic Graphic & Headline Composition -->
+<div class="relative my-12 md:my-16 grid grid-cols-1 lg:grid-cols-12 items-center gap-8">
+<!-- Left Dominant Headline -->
+<div class="lg:col-span-6 z-20 reveal-on-scroll is-revealed" style="transition-delay: 100ms;"><h1 class="text-5xl sm:text-7xl xl:text-8xl font-light tracking-tight leading-[0.95] text-white"><span class="block font-extralight tracking-tighter text-white">Engineering</span><span class="block font-light text-neutral-300 tracking-tight">Systems That</span><span class="block font-normal text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-400 tracking-tight">Scale.</span></h1><div class="mt-8 max-w-sm"><p class="text-xs uppercase font-mono tracking-widest text-neutral-400 mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-white"></span> System Statement</p><p class="text-xs text-neutral-400 font-mono leading-relaxed uppercase">Computer science &amp; engineering undergraduate. Specializing in distributed systems, low-level architecture, and modern web systems. Obsessed with efficiency, readability, and algorithmic rigor.</p></div></div>
+<!-- Center Editorial Portrait Cutout / Imagery with Parallax -->
+<div class="lg:col-span-6 relative flex justify-center lg:justify-end items-center reveal-on-scroll is-revealed" style="transition-delay: 200ms;">
+<div class="relative w-full max-w-[460px] aspect-[4/5] bg-neutral-900 overflow-hidden border border-neutral-800 group shadow-2xl">
+<!-- Studio Lighting Atmosphere Gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-pitch via-transparent to-neutral-900/40 z-10 pointer-events-none"></div>
+<!-- Hero Portrait with Subtle Parallax on Scroll -->
+<img alt="Portrait of Rohit Jana - Computer Science & Engineering Undergraduate" class="w-full h-full object-cover object-center filter grayscale contrast-125 brightness-90 group-hover:scale-105 transition-all duration-700 will-change-transform" id="hero-portrait" src="profile.jpg" style="transform: scale(1) translateY(0px);">
+<!-- Embedded Technical Metadata Badge -->
+<div class="absolute bottom-4 left-4 z-20 font-mono text-[10px] tracking-widest uppercase bg-black/80 px-2.5 py-1 border border-neutral-800 text-neutral-300 backdrop-blur-sm">FIG. 01 / ROHIT JANA — CSE / DEV</div>
+</div>
+<!-- Secondary Brutalist Text Layered Across Image -->
+<div class="absolute -bottom-8 right-0 lg:-left-20 z-20 pointer-events-none parallax-item" data-speed="-0.08" style="transform: translateY(0px);">
+<div class="text-4xl sm:text-6xl tracking-tighter uppercase text-neutral-200/90 drop-shadow-2xl"><span class="font-light text-neutral-400 block tracking-tight">TURNING</span><span class="font-normal text-white block tracking-tighter">COMPLEXITY</span><span class="font-light text-neutral-400 block text-2xl sm:text-4xl tracking-tight mt-1">INTO CODE.</span></div>
+</div>
+</div>
+</div>
+<!-- Hero Footer Micro-Grid -->
+<div class="pt-8 border-t border-neutral-900 grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs text-neutral-500 reveal-on-scroll is-revealed"><div class="hover:text-neutral-300 transition-colors"><span class="text-white block mb-1">01 / SYSTEMS ARCHITECTURE</span>Distributed computing, backend concurrency, operating systems.</div><div class="hover:text-neutral-300 transition-colors"><span class="text-white block mb-1">02 / FULL-STACK &amp; WEB</span>Modern frontend frameworks, microservices, and robust APIs.</div><div class="hover:text-neutral-300 transition-colors"><span class="text-white block mb-1">03 / ALGORITHMIC RIGOR</span>Data structures, computational logic, and performance optimization.</div></div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: TapeRibbonsSection -->
+<section class="py-14 bg-pitch overflow-hidden relative border-y border-neutral-900" data-purpose="ticker-strip">
+<div class="relative py-2 rotate-[-2.5deg] scale-105 transition-transform duration-300 will-change-transform" id="marquee-wrapper" style="transform: rotate(-2.5deg) scale(1.05);">
+<!-- Ribbon 01 (Slanted Left) -->
+<div class="tape-ribbon bg-white text-black py-2.5 border-y border-neutral-300 font-mono text-xs md:text-sm uppercase font-bold tracking-widest flex whitespace-nowrap overflow-hidden"><div class="animate-ticker-left marquee-track-1 flex items-center gap-8 shrink-0 will-change-transform"><span class="">ROHIT JANA — COMPUTER SCIENCE &amp; ENGINEERING</span><span class="text-[10px]">■ ■</span><span class="">SYSTEMS • ALGORITHMS • ARCHITECTURE</span><span class="text-[10px]">■ ■</span><span class="">GITHUB: @ROHITJANA9098</span><span class="text-[10px]">■ ■</span><span class="">B.TECH CSE 2026</span><span class="text-[10px]">■ ■</span><span class="">ENGINEERING RESILIENT SOFTWARE</span><span class="text-[10px]">■ ■</span></div><div aria-hidden="true" class="animate-ticker-left marquee-track-1 flex items-center gap-8 shrink-0 will-change-transform"><span class="">ROHIT JANA — COMPUTER SCIENCE &amp; ENGINEERING</span><span class="text-[10px]">■ ■</span><span class="">SYSTEMS • ALGORITHMS • ARCHITECTURE</span><span class="text-[10px]">■ ■</span><span class="">GITHUB: @ROHITJANA9098</span><span class="text-[10px]">■ ■</span><span class="">B.TECH CSE 2026</span><span class="text-[10px]">■ ■</span><span class="">ENGINEERING RESILIENT SOFTWARE</span><span class="text-[10px]">■ ■</span></div></div>
+<!-- Ribbon 02 (Slanted Reverse Right) -->
+<div class="tape-ribbon bg-neutral-900 text-neutral-200 py-2 border-b border-neutral-800 font-mono text-xs uppercase tracking-widest flex whitespace-nowrap overflow-hidden -mt-1 rotate-[1.5deg]"><div class="animate-ticker-right marquee-track-2 flex items-center gap-8 shrink-0 will-change-transform"><span class="">DISTRIBUTED SYSTEMS</span><span class="text-neutral-500">■ ■</span><span class="">COMPILER DESIGN</span><span class="text-neutral-500">■ ■</span><span class="">CONCURRENCY ENGINE</span><span class="text-neutral-500">■ ■</span><span class="">CLOUD ARCHITECTURE</span><span class="text-neutral-500">■ ■</span><span class="">GITHUB: @ROHITJANA9098</span><span class="text-neutral-500">■ ■</span></div><div aria-hidden="true" class="animate-ticker-right marquee-track-2 flex items-center gap-8 shrink-0 will-change-transform"><span class="">DISTRIBUTED SYSTEMS</span><span class="text-neutral-500">■ ■</span><span class="">COMPILER DESIGN</span><span class="text-neutral-500">■ ■</span><span class="">CONCURRENCY ENGINE</span><span class="text-neutral-500">■ ■</span><span class="">CLOUD ARCHITECTURE</span><span class="text-neutral-500">■ ■</span><span class="">GITHUB: @ROHITJANA9098</span><span class="text-neutral-500">■ ■</span></div></div>
+</div>
+</section>
+<!-- END: TapeRibbonsSection -->
+<!-- BEGIN: ManifestoAndShowcaseSection -->
+<section class="py-24 px-6 max-w-7xl mx-auto border-b border-neutral-900" id="about">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Manifesto Column -->
+<div class="lg:col-span-5 flex flex-col justify-between reveal-on-scroll is-revealed"><div class=""><div class="font-mono text-xs text-neutral-500 flex items-center gap-2 mb-8"><span class="w-1.5 h-1.5 bg-white"></span><span class="w-1.5 h-1.5 bg-white"></span><span class="uppercase tracking-widest">[ SYSTEM THESIS ]</span></div><h2 class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight leading-tight text-white mb-6 font-display">Writing software that is as <span class="font-medium text-white">robust</span> as it is <span class="font-normal text-neutral-400">intentional.</span></h2><p class="text-neutral-400 text-sm leading-relaxed mb-8">In an ecosystem overwhelmed by abstraction and bloat, I prioritize clean primitives, modular design, and predictable performance. Every line of code must be justified and reproducible.</p></div><div class="border-t border-neutral-900 pt-6"><p class="font-mono text-xs uppercase tracking-widest text-neutral-400 mb-4">Focused on designing systems that scale gracefully, handle edge cases with predictability, and remain maintainable over decades.</p><a class="inline-flex items-center gap-2 font-mono text-xs text-white hover:text-neutral-400 uppercase tracking-widest transition-colors group" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank"><span class="">[ VIEW GITHUB REPOSITORIES ]</span><span class="group-hover:translate-x-1 transition-transform">→</span></a></div></div>
+<!-- Right Editorial Spreads Showcase -->
+<div class="lg:col-span-7">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div class="tilt-card bg-neutral-950 border border-neutral-800 p-6 flex flex-col justify-between aspect-square group hover:border-neutral-600 transition-all reveal-on-scroll" style="transition-delay: 150ms;"><div class="flex justify-between items-start font-mono text-[10px] text-neutral-500"><span class="">SYS.SPEC_01</span><span class="">VOL. 26</span></div><div class="overflow-hidden my-4"><img alt="System Specimen" class="parallax-img w-full h-36 object-cover filter grayscale contrast-150 group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLseClgFdVDERntJugmmahqcV__lLXMOONWMcD4GgioDHki0pwOl5lpHrOZP0zo9tP8y7xsCkD7yzjbb772SUQjl1jLij_V8-fgFF_K0xMo92FDYvmCjOJ80Ncg1myroyDybl8orXLCKaLbtcP9MUwHyQcFBpXf_HkvoDBCWw6U0Vn4YHHcUMZeKcoithQPEEm2iEwjhtR-BnaMobHVb_j6133J_FFf_VL4z5Y7JHQwQxnjp04p4-q"></div><div><span class="text-xs font-mono uppercase text-neutral-300 block mb-1">Engineering for resilience and low latency.</span><span class="text-[10px] font-mono text-neutral-500 uppercase">Distributed Ledger &amp; Kernel Architecture</span></div></div><div class="tilt-card bg-white text-black p-6 flex flex-col justify-between aspect-square group shadow-xl hover:scale-[1.02] transition-all reveal-on-scroll" style="transition-delay: 300ms;"><div class="flex justify-between items-start font-mono text-[10px] text-neutral-600 border-b border-black pb-2"><span class="font-bold">Rohit Jana</span><span class="">[ CSE EDITION ]</span></div><div class="py-4"><h3 class="text-2xl uppercase tracking-tighter leading-none mb-2">Core Stack &amp;<br>Tooling.</h3><p class="font-mono text-[11px] leading-tight text-neutral-700 uppercase">C/C++ • Go • Rust<br>TypeScript • Python<br>Docker • Linux</p></div><div class="font-mono text-[9px] uppercase tracking-wider text-neutral-600 border-t border-black pt-2 flex justify-between"><span class="">Systems &amp; Architecture</span><span class="">Algorithmic Compute</span></div></div></div>
+</div>
+</div>
+</section>
+<!-- END: ManifestoAndShowcaseSection -->
+<!-- BEGIN: SelectedWorkSection -->
+<section class="py-24 px-6 max-w-7xl mx-auto border-b border-neutral-900" id="work">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 reveal-on-scroll is-revealed"><div class=""><div class="font-mono text-xs text-neutral-500 flex items-center gap-2 mb-3"><span class="w-1.5 h-1.5 bg-white"></span><span class="w-1.5 h-1.5 bg-white"></span><span class="uppercase tracking-widest">[ REPOSITORIES ]</span></div><h2 class="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white font-display uppercase">Selected Repositories <span class="text-neutral-500 font-normal">&amp; Projects</span></h2></div><p class="font-mono text-xs text-neutral-500 mt-4 md:mt-0 uppercase tracking-widest">Filtered by Systems, Backend &amp; Applied Algorithms</p></div>
+<!-- Project Directory Table -->
+<div class="border-t border-neutral-800" data-purpose="projects-table"><div class="hidden sm:grid grid-cols-12 py-3 px-2 font-mono text-[10px] text-neutral-500 uppercase tracking-widest border-b border-neutral-900"><span class="col-span-5">Project / Repository</span><span class="col-span-5">Stack &amp; Domain</span><span class="col-span-2 text-right">Status / Year</span></div><a class="work-row block py-5 border-b border-neutral-900 text-neutral-300 hover:text-white group reveal-on-scroll" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank" style="transition-delay: 50ms;"><div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-2"><div class="sm:col-span-5 font-bold uppercase tracking-tight text-lg flex items-center gap-3"><span class="row-dot text-xs text-white opacity-0 transition-all">■</span><span class="group-hover:translate-x-1 transition-transform">DISTRIBUTED KEY-VALUE STORE</span><span class="row-arrow text-xs text-neutral-400">→</span></div><div class="sm:col-span-5 font-mono text-xs text-neutral-400 uppercase tracking-wider">Go, Raft Consensus, gRPC, LevelDB</div><div class="sm:col-span-2 font-mono text-xs text-neutral-500 sm:text-right uppercase">2026</div></div></a><a class="work-row block py-5 border-b border-neutral-900 text-neutral-300 hover:text-white group reveal-on-scroll" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank" style="transition-delay: 100ms;"><div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-2"><div class="sm:col-span-5 font-bold uppercase tracking-tight text-lg flex items-center gap-3"><span class="row-dot text-xs text-white opacity-0 transition-all">■</span><span class="group-hover:translate-x-1 transition-transform">CUSTOM COMPILED RUNTIME / VM</span><span class="row-arrow text-xs text-neutral-400">→</span></div><div class="sm:col-span-5 font-mono text-xs text-neutral-400 uppercase tracking-wider">Rust, Bytecode, Lexer/Parser, GC</div><div class="sm:col-span-2 font-mono text-xs text-neutral-500 sm:text-right uppercase">2026</div></div></a><a class="work-row block py-5 border-b border-neutral-900 text-neutral-300 hover:text-white bg-neutral-950/40 group reveal-on-scroll" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank" style="transition-delay: 150ms;"><div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-2"><div class="sm:col-span-5 font-bold uppercase tracking-tight text-lg flex items-center gap-3"><span class="text-xs text-white inline-flex gap-1"><span class="w-1.5 h-1.5 bg-white"></span><span class="w-1.5 h-1.5 bg-white"></span></span><span class="text-white group-hover:translate-x-1 transition-transform">HIGH-THROUGHPUT API GATEWAY</span><span class="row-arrow text-xs text-white">→</span></div><div class="sm:col-span-5 font-mono text-xs text-neutral-300 uppercase tracking-wider">Go, Envoy, Redis, Rate Limiting &amp; Observability</div><div class="sm:col-span-2 font-mono text-xs text-white sm:text-right uppercase font-bold">2026</div></div></a><a class="work-row block py-5 border-b border-neutral-900 text-neutral-300 hover:text-white group reveal-on-scroll" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank" style="transition-delay: 200ms;"><div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-2"><div class="sm:col-span-5 font-bold uppercase tracking-tight text-lg flex items-center gap-3"><span class="row-dot text-xs text-white opacity-0 transition-all">■</span><span class="group-hover:translate-x-1 transition-transform">CONCURRENT NETWORK ENGINE</span><span class="row-arrow text-xs text-neutral-400">→</span></div><div class="sm:col-span-5 font-mono text-xs text-neutral-400 uppercase tracking-wider">C++, Linux Epoll, Event Loops &amp; Non-blocking I/O</div><div class="sm:col-span-2 font-mono text-xs text-neutral-500 sm:text-right uppercase">2025</div></div></a><a class="work-row block py-5 border-b border-neutral-900 text-neutral-300 hover:text-white group reveal-on-scroll" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank" style="transition-delay: 250ms;"><div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-2"><div class="sm:col-span-5 font-bold uppercase tracking-tight text-lg flex items-center gap-3"><span class="row-dot text-xs text-white opacity-0 transition-all">■</span><span class="group-hover:translate-x-1 transition-transform">ALGORITHM VISUALIZER SUITE</span><span class="row-arrow text-xs text-neutral-400">→</span></div><div class="sm:col-span-5 font-mono text-xs text-neutral-400 uppercase tracking-wider">TypeScript, HTML5 Canvas, Graph &amp; Tree Algorithms</div><div class="sm:col-span-2 font-mono text-xs text-neutral-500 sm:text-right uppercase">2025</div></div></a><a class="work-row block py-5 border-b border-neutral-900 text-neutral-300 hover:text-white group reveal-on-scroll" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank" style="transition-delay: 300ms;"><div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-2"><div class="sm:col-span-5 font-bold uppercase tracking-tight text-lg flex items-center gap-3"><span class="row-dot text-xs text-white opacity-0 transition-all">■</span><span class="group-hover:translate-x-1 transition-transform">NEURAL VISION BENCHMARK</span><span class="row-arrow text-xs text-neutral-400">→</span></div><div class="sm:col-span-5 font-mono text-xs text-neutral-400 uppercase tracking-wider">Python, PyTorch, CUDA, Convolutional Kernels</div><div class="sm:col-span-2 font-mono text-xs text-neutral-500 sm:text-right uppercase">2025</div></div></a><a class="work-row block py-5 border-b border-neutral-900 text-neutral-300 hover:text-white group reveal-on-scroll" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank" style="transition-delay: 350ms;"><div class="grid grid-cols-1 sm:grid-cols-12 items-center gap-2"><div class="sm:col-span-5 font-bold uppercase tracking-tight text-lg flex items-center gap-3"><span class="row-dot text-xs text-white opacity-0 transition-all">■</span><span class="group-hover:translate-x-1 transition-transform">MICROSERVICES KERNEL CLUSTER</span><span class="row-arrow text-xs text-neutral-400">→</span></div><div class="sm:col-span-5 font-mono text-xs text-neutral-400 uppercase tracking-wider">Kubernetes, Docker, Terraform, Prometheus</div><div class="sm:col-span-2 font-mono text-xs text-neutral-500 sm:text-right uppercase">2025</div></div></a></div>
+</section>
+<!-- END: SelectedWorkSection -->
+<!-- BEGIN: ProcessAndVisualResearchSection -->
+<section class="py-24 px-6 max-w-7xl mx-auto border-b border-neutral-900" id="process">
+<!-- Section Intro Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16 reveal-on-scroll is-revealed"><div class="lg:col-span-6"><div class="font-mono text-xs text-neutral-500 flex items-center gap-2 mb-3"><span class="w-1.5 h-1.5 bg-white"></span><span class="w-1.5 h-1.5 bg-white"></span><span class="uppercase tracking-widest">[ SYSTEMS RESEARCH ]</span></div><h2 class="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4 font-display uppercase leading-none">System Lab <span class="text-neutral-500 font-normal">&amp;</span><br><span class="font-normal text-neutral-200">Technical Explorations</span></h2><a class="font-mono text-xs uppercase tracking-widest text-neutral-400 hover:text-white transition-colors" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank">[ Rohit Jana GitHub → ]</a></div><div class="lg:col-span-6 lg:pl-10"><p class="font-mono text-xs leading-relaxed uppercase text-neutral-400">A space to share thoughts, experiments, references, and the ideas that influence how I create. Exploring low-level system design, concurrency benchmarks, and the architectural decisions behind scalable software.</p></div></div>
+<!-- Tactile Visual Research Grid (4 Columns) with Tilt & Scroll Reveals -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"><div class="tilt-card flex flex-col group reveal-on-scroll" style="transition-delay: 100ms;"><div class="w-full aspect-square bg-neutral-950 border border-neutral-800 overflow-hidden relative flex items-center justify-center p-4 group-hover:border-neutral-600 transition-colors"><div class="w-full h-full bg-gradient-to-tr from-neutral-900 via-white/20 to-neutral-950 rounded-full blur-xl opacity-60 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700"></div><div class="absolute inset-4 border border-dashed border-neutral-700/50 flex items-center justify-center"><span class="font-mono text-5xl font-black text-white mix-blend-difference tracking-tighter group-hover:scale-110 transition-transform">01</span></div></div><div class="mt-4 font-mono text-[11px] uppercase tracking-wider text-neutral-400 flex items-center gap-2"><span class="text-white">■ ■</span><span class="">Distributed Consensus</span></div></div><div class="tilt-card flex flex-col group reveal-on-scroll" style="transition-delay: 200ms;"><div class="w-full aspect-square bg-neutral-950 border border-neutral-800 overflow-hidden relative flex items-center justify-center p-6 group-hover:border-neutral-600 transition-colors"><div class="w-full h-full rounded-full vinyl-grooves border border-neutral-700 flex items-center justify-center shadow-2xl group-hover:rotate-45 transition-transform duration-1000"><div class="w-12 h-12 bg-white rounded-full flex items-center justify-center border-2 border-black"><div class="w-3 h-3 bg-black rounded-full"></div></div></div></div><div class="mt-4 font-mono text-[11px] uppercase tracking-wider text-neutral-400 flex items-center gap-2"><span class="text-white">■ ■</span><span class="">Concurrency Primitives</span></div></div><div class="tilt-card flex flex-col group reveal-on-scroll" style="transition-delay: 300ms;"><div class="w-full aspect-square bg-neutral-950 border border-neutral-800 overflow-hidden relative p-4 flex items-center justify-center group-hover:border-neutral-600 transition-colors"><div class="w-full h-full bg-noise bg-neutral-900 flex flex-col justify-between p-4 border border-neutral-800"><div class="flex justify-between font-mono text-[9px] text-neutral-500 uppercase"><span class="">CPU.CYCLES</span><span class="">64-BIT</span></div><div class="font-display font-black text-4xl text-neutral-300 tracking-tighter text-center group-hover:tracking-wider transition-all duration-500">BENCH</div><div class="font-mono text-[8px] text-neutral-600 text-center tracking-widest">██████████████</div></div></div><div class="mt-4 font-mono text-[11px] uppercase tracking-wider text-neutral-400 flex items-center gap-2"><span class="text-white">■ ■</span><span class="">Kernel &amp; Runtime Benchmarks</span></div></div><div class="tilt-card flex flex-col group reveal-on-scroll" style="transition-delay: 400ms;"><div class="w-full aspect-square bg-neutral-950 border border-neutral-800 overflow-hidden relative flex items-center justify-center p-6 group-hover:border-neutral-600 transition-colors"><div class="relative w-full h-full border border-neutral-800 flex items-center justify-center overflow-hidden"><div class="absolute w-40 h-[1px] bg-white rotate-45 group-hover:scale-x-125 transition-transform duration-500"></div><div class="absolute w-40 h-[1px] bg-white -rotate-45 group-hover:scale-x-125 transition-transform duration-500"></div><div class="z-10 font-mono text-[10px] bg-black px-2 py-1 border border-neutral-700 uppercase tracking-widest text-white group-hover:border-white transition-colors">Automata</div></div></div><div class="mt-4 font-mono text-[11px] uppercase tracking-wider text-neutral-400 flex items-center gap-2"><span class="text-white">■ ■</span><span class="">Graph &amp; Automata Theory</span></div></div></div>
+</section>
+<!-- END: ProcessAndVisualResearchSection -->
+<!-- BEGIN: ContactAndInquirySection -->
+<section class="py-24 px-6 max-w-7xl mx-auto" id="contact">
+<!-- Top Call to Action Block -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-20"><div class="lg:col-span-8 reveal-on-scroll"><p class="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-4 flex items-center gap-2"><span class="w-1.5 h-1.5 bg-white"></span><span class="">Initiate Collaboration / Rohit Jana [CSE]</span></p><h2 class="text-5xl sm:text-7xl lg:text-8xl font-light uppercase tracking-tight leading-none text-white font-display">Let's Build<br><span class="font-normal text-neutral-300">Something</span><br><span class="font-medium text-white">Resilient.</span></h2></div><div class="lg:col-span-4 font-mono text-xs text-neutral-400 uppercase leading-relaxed reveal-on-scroll" style="transition-delay: 150ms;"><p class="mb-6">Open to software engineering internships, systems collaborations, and open-source research. Let's discuss code architecture, infrastructure, and applied algorithms.</p><a class="inline-block px-5 py-3 bg-white text-black font-bold uppercase tracking-wider text-xs hover:bg-neutral-200 transition-colors active:scale-95" href="mailto:contact@rohitjana.com">Initiate Contact / Send Inquiry [→]</a></div></div>
+<!-- Comprehensive Directory Sitemap -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-t border-neutral-900 font-mono text-xs uppercase tracking-wider text-neutral-400 reveal-on-scroll is-revealed"><div class="space-y-3"><span class="text-neutral-600 block text-[10px] mb-1">// NAVIGATION</span><div><a class="hover:text-white transition-colors" href="#">[ Home ]</a></div><div><a class="hover:text-white transition-colors" href="#about">[ About ]</a></div><div><a class="hover:text-white transition-colors" href="#work">[ Repositories ]</a></div><div><a class="hover:text-white transition-colors" href="#process">[ Research ]</a></div></div><div class="space-y-3"><span class="text-neutral-600 block text-[10px] mb-1">// FOCUS AREAS</span><div><a class="hover:text-white transition-colors" href="#">[ Distributed Systems ]</a></div><div><a class="hover:text-white transition-colors" href="#">[ Backend Architecture ]</a></div><div><a class="hover:text-white transition-colors" href="#">[ Cloud Infrastructure ]</a></div><div><a class="hover:text-white transition-colors" href="#">[ Low-Level Dev ]</a></div></div><div class="space-y-3"><span class="text-neutral-600 block text-[10px] mb-1">// STACK</span><div><a class="hover:text-white transition-colors" href="#">[ C / C++ ]</a></div><div><a class="hover:text-white transition-colors" href="#">[ Go / Golang ]</a></div><div><a class="hover:text-white transition-colors" href="#">[ Rust ]</a></div><div><a class="hover:text-white transition-colors" href="#">[ TypeScript / Python ]</a></div></div><div class="space-y-3"><span class="text-neutral-600 block text-[10px] mb-1">// CONNECT</span><div><a class="hover:text-white transition-colors text-white font-bold" href="https://github.com/Rohitjana9098" rel="noopener noreferrer" target="_blank">[ GitHub @Rohitjana9098 ]</a></div><div><a class="hover:text-white transition-colors" href="https://linkedin.com" rel="noopener noreferrer" target="_blank">[ LinkedIn ]</a></div><div><a class="hover:text-white transition-colors" href="https://twitter.com" rel="noopener noreferrer" target="_blank">[ Twitter / X ]</a></div><div><a class="hover:text-white transition-colors" href="mailto:contact@rohitjana.com">[ Resume / CV ]</a></div></div></div>
+</section>
+<!-- END: ContactAndInquirySection -->
+<!-- BEGIN: MegaBrutalistWatermarkFooter -->
+<footer class="relative overflow-hidden border-t border-neutral-900 bg-pitch pt-12 pb-6 select-none pointer-events-none">
+<div class="max-w-7xl mx-auto px-6 flex justify-between items-center font-mono text-[10px] text-neutral-600 uppercase tracking-widest mb-6">
+<span class="">ROHIT JANA STUDIO © 2026</span>
+<span class="">ALL RIGHTS RESERVED</span>
+<span class="">BERLIN / PARIS / NYC</span>
+</div>
+<!-- Huge Brutalist Cutout Monogram / Letterforms with subtle parallax transform -->
+<div class="w-full flex justify-center items-center opacity-[0.14] tracking-tighter leading-none whitespace-nowrap overflow-hidden">
+<span class="text-[18vw] font-display font-black text-white transform translate-y-4 will-change-transform" id="footer-watermark" style="transform: translateY(0px);">ROHIT·JANA·CSE</span>
+</div>
+</footer>
+<!-- END: MegaBrutalistWatermarkFooter -->
+</main>
+<!-- Lenis Smooth Scroll Library (darkroom.engineering) — UMD build exposing global `Lenis` -->
+<script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
+<!-- BEGIN: InteractiveScripts -->
+<script data-purpose="motion-and-scroll-interactions">
+  (function () {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 0. Lenis Smooth Scrolling — buttery wheel physics with graceful fallback
+    //    (native scrolling still drives all listeners below; Lenis only replaces
+    //    the scroll motion, so the progress bar / parallax / header keep working)
+    if (!prefersReducedMotion && typeof Lenis !== 'undefined') {
+      new Lenis({
+        autoRaf: true,
+        lerp: 0.1,
+        smoothWheel: true,
+        touchMultiplier: 1.5,
+        // Native anchor handling (v1.3+): offset -64px clears the fixed header;
+        // href="#" links scroll smoothly back to the very top
+        anchors: { offset: -64, duration: 1.2 },
+      });
+    }
+
+    // 1. Sleek Scroll Progress Bar & Header Glass styling
+    const progressBar = document.getElementById('scroll-progress');
+    const header = document.getElementById('site-header');
+    const heroPortrait = document.getElementById('hero-portrait');
+    const watermark = document.getElementById('footer-watermark');
+    const marqueeWrapper = document.getElementById('marquee-wrapper');
+    const parallaxItems = document.querySelectorAll('.parallax-item');
+
+    let ticking = false;
+    let lastScrollY = window.scrollY;
+
+    function onScroll() {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+
+      // Update progress bar
+      if (progressBar) {
+        progressBar.style.width = progress + '%';
+      }
+
+      // Dynamic header styling
+      if (header) {
+        if (scrollY > 50) {
+          header.classList.add('bg-pitch/95', 'py-1');
+        } else {
+          header.classList.remove('bg-pitch/95', 'py-1');
+        }
+      }
+
+      if (!prefersReducedMotion) {
+        // Subtle Parallax on Hero Portrait
+        if (heroPortrait && scrollY < window.innerHeight * 1.5) {
+          const portraitOffset = scrollY * 0.08;
+          heroPortrait.style.transform = `scale(1) translateY(${portraitOffset}px)`;
+        }
+
+        // Additional Parallax Elements
+        parallaxItems.forEach(item => {
+          const speed = parseFloat(item.getAttribute('data-speed') || '-0.05');
+          item.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+
+        // Marquee tilt responsiveness to scroll speed
+        if (marqueeWrapper) {
+          const delta = scrollY - lastScrollY;
+          const tiltModifier = Math.max(-6, Math.min(6, delta * 0.15));
+          marqueeWrapper.style.transform = `rotate(${ -2.5 + tiltModifier * 0.15 }deg) scale(${1.05 + Math.abs(tiltModifier) * 0.002})`;
+        }
+
+        // Footer subtle shift
+        if (watermark) {
+          const footerDist = document.documentElement.scrollHeight - (scrollY + window.innerHeight);
+          if (footerDist < 800) {
+            watermark.style.transform = `translateY(${footerDist * 0.04}px)`;
+          }
+        }
+      }
+
+      lastScrollY = scrollY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial call
+    onScroll();
+
+    // 2. IntersectionObserver for Scroll Reveals
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+      // Fallback
+      revealElements.forEach(el => el.classList.add('is-revealed'));
+    }
+
+    // 3. Interactive Cursor Glow Backdrop
+    const glow = document.getElementById('cursor-glow');
+    if (glow && window.innerWidth > 768) {
+      let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+      let glowVisible = false;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!glowVisible) {
+          glow.style.opacity = '1';
+          glowVisible = true;
+        }
+      }, { passive: true });
+
+      function updateGlow() {
+        currentX += (mouseX - currentX) * 0.15;
+        currentY += (mouseY - currentY) * 0.15;
+        glow.style.left = `${currentX}px`;
+        glow.style.top = `${currentY}px`;
+        requestAnimationFrame(updateGlow);
+      }
+      updateGlow();
+    }
+
+    // 4. Subtle 3D Card Tilt for Experiment / Artifact Cards
+    if (!prefersReducedMotion) {
+      const tiltCards = document.querySelectorAll('.tilt-card');
+      tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -5;
+          const rotateY = ((x - centerX) / centerX) * 5;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+    }
+
+    // Console Stamp
+    console.log(
+      "%c ROHIT JANA STUDIO %c 2026 Editorial Portfolio Archive %c github.com/Rohitjana9098",
+      "background: #fff; color: #000; font-weight: bold; padding: 4px 8px;",
+      "background: #111; color: #fff; padding: 4px 8px;",
+      "background: transparent; color: #888; padding: 4px;"
+    );
+  })();
+</script>
+<!-- END: InteractiveScripts -->
+
+
+</body></html>
